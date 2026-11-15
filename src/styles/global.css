@@ -271,7 +271,7 @@ main { padding-block: 0; min-width: 0; }
 .avatar {
   width: 72px; height: 72px; margin: 0 auto;
   border-radius: 50%; display: grid; place-items: center; font-size: 2rem;
-  background: linear-gradient(135deg, #d9482b, #8b3fd1);
+  object-fit: cover; background: #fff;
 }
 .recent { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
 .recent li { display: flex; justify-content: space-between; gap: 8px; font-size: 0.88rem; line-height: 1.5; }
