@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+const recent = posts.slice(0, 5);
+const counts = new Map<string, number>();
+for (const p of posts) for (const t of p.data.tags) counts.set(t, (counts.get(t) ?? 0) + 1);
+const tags = [...counts.entries()].sort((a, b) => b[1] - a[1]);
+const fmt = (d: Date) =>
+  d.toLocaleDateString('ja-JP', { month: 'numeric', day: 'numeric', timeZone: 'Asia/Tokyo' });
+---
+
+<aside class="sidebar">
+  <section class="widget profile">
+    <div class="avatar">🎮</div>
+    <h3>ゲーム好きの管理人</h3>
+    <p>遊んだゲームのことを気ままに書き留めています。(ここは自己紹介に書き換えてください)</p>
+  </section>
+
+  <section class="widget">
+    <h3>最近の記録</h3>
+    <ul class="recent">
+      {recent.map((p) => (
+        <li>
+          <a href={`${base}/posts/${p.id}/`}>{p.data.title}</a>
+          <span>{fmt(p.data.date)}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  {tags.length > 0 && (
+    <section class="widget">
+      <h3>タグ</h3>
+      <div class="tags">
+        {tags.map(([t, n]) => (
+          <a class="tag" href={`${base}/tags/${encodeURIComponent(t)}/`}>#{t} <small>{n}</small></a>
+        ))}
+      </div>
+    </section>
+  )}
+</aside>

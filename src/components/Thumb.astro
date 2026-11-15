@@ -1,0 +1,17 @@
+---
+// カバー画像。未指定ならタイトルから決まる色のグラデーションを表示する
+interface Props {
+  title: string;
+  cover?: string;
+  label?: string;
+  hero?: boolean;
+}
+const { title, cover, label, hero = false } = Astro.props;
+const hue = [...title].reduce((a, c) => a + c.charCodeAt(0), 0) % 360;
+const bg = `linear-gradient(135deg, hsl(${hue} 65% 58%), hsl(${(hue + 45) % 360} 70% 42%))`;
+---
+
+<div class:list={['thumb', { hero }]} style={cover ? undefined : `background: ${bg}`}>
+  {cover ? <img src={cover} alt="" loading="lazy" /> : <span class="thumb-icon">🎮</span>}
+  {label && <span class="thumb-label">{label}</span>}
+</div>

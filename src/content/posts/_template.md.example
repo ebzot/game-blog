@@ -1,0 +1,13 @@
+---
+title: "ゲームタイトル"
+date: 2026-01-01
+# ↓ ここから下は全部省略できます
+platform: "Nintendo Switch / PS5 / PC など"
+status: "プレイ中"     # クリア / プレイ中 / 積みゲー / 中断
+playtime: "約10時間"
+tags: ["タグ1", "タグ2"]
+summary: "一覧に出るひとこと"
+draft: true            # true の間は公開されません。書けたら false に
+---
+
+思ったことをそのまま書く。
